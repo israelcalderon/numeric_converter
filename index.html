@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor Numérico - PyScript</title>
+    
+    <!-- <link rel="stylesheet" href="https://pyscript.net/releases/2025.12.1/core.css"> -->
+    <!-- <script type="module" src="https://pyscript.net/releases/2025.12.1/core.js"></script> -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.2.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.2.1/core.js"></script>
+
+
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        .container { max-width: 500px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #2c3e50; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%; }
+        #result { margin-top: 20px; padding: 15px; background: #f4f4f4; border-radius: 4px; font-family: monospace; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Convertidor de Base 10</h2>
+        
+        <div class="input-group">
+            <label for="number-input">Número Decimal (Base 10):</label>
+            <input type="number" id="number-input" step="any" placeholder="Ej: 25.5">
+        </div>
+
+        <div class="input-group">
+            <label for="base-input">Base Destino:</label>
+            <input type="number" id="base-input" placeholder="Ej: 2, 8, 16, 60">
+        </div>
+
+        <button id="convert-btn" py-click="perform_conversion">Convertir</button>
+
+        <div id="result">El resultado aparecerá aquí...</div>
+    </div>
+
+    <script type="py" config='{
+        "files": {
+            "numeric_converter/__init__.py": "./numeric_converter/__init__.py",
+            "numeric_converter/converter.py": "./numeric_converter/converter.py",
+            "numeric_converter/base_character.py": "./numeric_converter/base_character.py"
+        }
+    }'>
+        from pyscript import document
+        from numeric_converter.converter import base_10_to_r
+
+        def perform_conversion(event):
+            num_str = document.querySelector("#number-input").value
+            base_str = document.querySelector("#base-input").value
+            result_div = document.querySelector("#result")
+
+            if not num_str or not base_str:
+                result_div.innerText = "Error: Completa ambos campos."
+                return
+
+            try:
+                num = float(num_str)
+                base = int(base_str)
+                converted = base_10_to_r(num, base)                
+                result_div.innerText = f"Resultado (Base {base}):\n{converted}"
+            
+            except Exception as e:
+                result_div.innerText = f"Error: {str(e)}"
+    </script>
+
+</body>
+</html>
