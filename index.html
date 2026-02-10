@@ -43,10 +43,11 @@
 
     <script type="py" config='{
         "files": {
-            "numeric_converter/__init__.py": "./numeric_converter/__init__.py",
-            "numeric_converter/converter.py": "./numeric_converter/converter.py",
-            "numeric_converter/base_character.py": "./numeric_converter/base_character.py"
-        }
+            "numeric_converter/__init__.py": "numeric_converter/__init__.py",
+            "numeric_converter/converter.py": "numeric_converter/converter.py",
+            "numeric_converter/base_character.py": "numeric_converter/base_character.py"
+        },
+        "paths": ["numeric_converter"]
     }'>
         from pyscript import document
         from numeric_converter.converter import base_10_to_r
